@@ -1,7 +1,11 @@
-import "./App.css";
+import Header from "./component/layout/Header";
 
 function App() {
-  return <div>youtube clone</div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 }
 
 export default App;
