@@ -1,12 +1,4 @@
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Button,
-  InputBase,
-  IconButton,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Box, InputBase, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import React from "react";

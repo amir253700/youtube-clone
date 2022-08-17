@@ -3,7 +3,6 @@ import {
   Box,
   Toolbar,
   Button,
-  InputBase,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -12,7 +11,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import { styled, alpha, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import React, { useState } from "react";
 import Search from "../UI/Search";
 import SearchIcon from "@mui/icons-material/Search";
