@@ -28,6 +28,10 @@ const SearchContainer = styled("div")(({ theme }) => ({
     marginLeft: theme.spacing(3),
     width: "50%",
   },
+  [theme.breakpoints.down("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "30vw",
+  },
   "&:focus > #srch": {
     display: "flex",
   },
@@ -52,7 +56,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create(["width", "background-color"]),
-    transitionDuration: "0s",
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       width: "100%",
