@@ -1,4 +1,4 @@
-import Header from "./component/layout/Header";
+import Header from "./component/layout/header/Header";
 
 function App() {
   return (

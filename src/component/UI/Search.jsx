@@ -18,7 +18,7 @@ const SearchContainer = styled("div")(({ theme }) => ({
   flexDirection: "row-reverse",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
-    width: "50%",
+    width: "30vw",
   },
   [theme.breakpoints.down("sm")]: {
     marginLeft: theme.spacing(3),

@@ -13,14 +13,26 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import { useTheme } from "@mui/material/styles";
 import React, { useState } from "react";
-import Search from "../UI/Search";
+import Search from "../../UI/Search";
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import KebabMenu from "./kebabMenu/KebabMenu";
 
 const Header = () => {
   const theme = useTheme();
   const mobileMode = useMediaQuery(theme.breakpoints.down("sm"));
   const [searchIconClicked, setSearchIconClicked] = useState(false);
+  const [showKebabMenu, setShowKebabMenu] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    setShowKebabMenu((prev) => !prev);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+    setShowKebabMenu(false);
+  };
 
   return (
     <Box>
@@ -98,9 +110,10 @@ const Header = () => {
                 <SearchIcon />
               </IconButton>
             )}
-            <IconButton sx={{ border: "none" }}>
+            <IconButton sx={{ border: "none" }} onClick={handleClick}>
               <MoreVertIcon />
             </IconButton>
+
             <Button
               color="primary"
               variant="outlined"
@@ -124,6 +137,15 @@ const Header = () => {
               </Typography>
             </Button>
           </Box>
+          {showKebabMenu && (
+            <Box sx={{ position: "absolute" }}>
+              <KebabMenu
+                openMenu={showKebabMenu}
+                onClose={handleClose}
+                anchorEl={anchorEl}
+              />
+            </Box>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
