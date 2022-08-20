@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";
@@ -19,11 +19,16 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import FeedbackOutlinedIcon from "@mui/icons-material/FeedbackOutlined";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
+import RestrictedSubMenu from "./RestrictedSubMenu";
+import KeyboardShortcuts from "./KeyboardShortcuts";
 
 const KebabMenu = ({ openMenu, anchorEl, onClose }) => {
   const [open, setOpen] = React.useState(false);
   const [component, setComponent] = React.useState(null);
   const [anchorsEl, setAnchorSEl] = React.useState(null);
+  const [restricted, setRestricted] = useState(false);
+  const [showKeyboardShortcutDialog, setShowKeyboardShortcutDialog] =
+    useState(false);
 
   const handleClick = (component) => {
     setComponent(component);
@@ -45,6 +50,20 @@ const KebabMenu = ({ openMenu, anchorEl, onClose }) => {
     setOpen((prev) => !prev);
   };
 
+  const componentToRender =
+    component === "restricted" ? (
+      <RestrictedSubMenu
+        onBackButtonPressed={ReturnToMainHandler}
+        onRestrictionChanged={() => setRestricted((prev) => !prev)}
+        restricted={restricted}
+      />
+    ) : (
+      <SimilarSubMenus
+        component={component}
+        onBackButtonPressed={ReturnToMainHandler}
+      />
+    );
+
   return (
     <Menu
       open={openMenu}
@@ -55,10 +74,7 @@ const KebabMenu = ({ openMenu, anchorEl, onClose }) => {
       TransitionProps={slideProps}
     >
       {open ? (
-        <SimilarSubMenus
-          component={component}
-          onBackButtonPressed={ReturnToMainHandler}
-        />
+        componentToRender
       ) : (
         <MenuList>
           <MenuItem id="kharpedar">
@@ -85,11 +101,13 @@ const KebabMenu = ({ openMenu, anchorEl, onClose }) => {
             <KeyboardArrowRightOutlinedIcon />
           </MenuItem>
 
-          <MenuItem>
+          <MenuItem onClick={() => handleClick("restricted")}>
             <ListItemIcon>
               <AdminPanelSettingsOutlinedIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText>Restricted Mode:Off</ListItemText>
+            <ListItemText>
+              Restricted Mode:{restricted ? "ON" : "OFF"}
+            </ListItemText>
             <KeyboardArrowRightOutlinedIcon />
           </MenuItem>
 
@@ -101,14 +119,17 @@ const KebabMenu = ({ openMenu, anchorEl, onClose }) => {
             <KeyboardArrowRightOutlinedIcon />
           </MenuItem>
 
-          <MenuItem>
+          <MenuItem onClick={() => setShowKeyboardShortcutDialog(true)}>
             <ListItemIcon>
               <KeyboardOutlinedIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText>Keyboard Shortcuts</ListItemText>
           </MenuItem>
           <Divider />
-
+          <KeyboardShortcuts
+            open={showKeyboardShortcutDialog}
+            onClose={() => setShowKeyboardShortcutDialog(false)}
+          />
           <MenuItem>
             <ListItemIcon>
               <SettingsOutlinedIcon fontSize="small" />
